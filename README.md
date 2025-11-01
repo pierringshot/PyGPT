@@ -151,3 +151,14 @@ sudo rm -f /bin/pygpt
 
 > _“PyGPT – Sessiya tokeninin gücü ilə ChatGPT-yə yeni körpü.”_  
 > _“PyGPT – A sleek bridge between you and ChatGPT’s web brain.”_
+
+---
+
+## 🤝 Tərəfdaşlar | Partners
+<div align="center">
+
+| 🇦🇿 Təşəbbüskar | 🇬🇧 Contributor |
+| --- | --- |
+| <a href="https://github.com/pierringshot"><img src="https://avatars.githubusercontent.com/pierringshot" alt="PierringShot Electronics™" height="64"><br/><sub><b>PierringShot Electronics™</b><br/>@pierringshot</sub></a> | <a href="https://github.com/Azerbaijan-Cybersecurity-Center"><img src="https://avatars.githubusercontent.com/Azerbaijan-Cybersecurity-Center" alt="Azerbaijan Cybersecurity Center" height="64"><br/><sub><b>Azerbaijan Cybersecurity Center</b></sub></a> |
+
+</div>
