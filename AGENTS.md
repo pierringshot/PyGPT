@@ -27,6 +27,7 @@ This guide captures the essentials for anyone maintaining or extending the PyGPT
   pygpt --token "<session_token>" --verbose
   ```
 - Keep an eye on `undetected_chromedriver` compatibility; add regression notes if Google updates Chrome.
+- Client auto-detects the installed Chrome major version but exposes a manual override (`--chrome-version` or `chrome_version=`) for mismatches.
 - Headless deployments rely on `PyVirtualDisplay`; ensure the dependency stays pinned and that `xvfb` is installed on target hosts.
 
 ## 🚀 Installer Flow (`setup.sh`)

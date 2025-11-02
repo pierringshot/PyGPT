@@ -57,6 +57,9 @@ pygpt --token "BURAYA_SESSIYA_TOKENI"
 #### Əlavə Seçimlər
 - `--conversation` – əvvəlki söhbətin ID-si ilə davam edin.
 - `--verbose` – daha detallı loglar.
+- `--chrome-version` – Chromium/Chrome əsas versiyasını məcbur edin (məs: 142).
+
+> PyGPT sistemdəki Chromium versiyasını avtomatik aşkar edir; uyğunsuzluq varsa `--chrome-version 139` kimi parametr əlavə edin.
 
 ---
 
@@ -101,6 +104,9 @@ During the chat:
 Optional flags:
 - `--conversation` – continue a previous conversation ID.
 - `--verbose` – print detailed logs.
+- `--chrome-version` – force a specific Chrome major version (e.g., 142).
+
+> PyGPT tries to auto-detect your installed Chromium; if a driver mismatch occurs, rerun with `--chrome-version 139`.
 
 ---
 

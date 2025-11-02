@@ -27,6 +27,11 @@ def run_cli() -> None:
         action="store_true",
         help="Daha detallı çıxış | Verbose logging",
     )
+    parser.add_argument(
+        "--chrome-version",
+        type=int,
+        help="Chromium/Chrome əsas versiyasını məcbur et (məs: 142) | Force Chrome major version",
+    )
     args = parser.parse_args()
 
     session_token = args.token or input(
@@ -40,7 +45,12 @@ def run_cli() -> None:
         print("Token tələb olunur. | Session token is required.")
         sys.exit(1)
 
-    chat = ChatGPT(session_token, conversation_id or "", verbose=args.verbose)
+    chat = ChatGPT(
+        session_token,
+        conversation_id or "",
+        verbose=args.verbose,
+        chrome_version=args.chrome_version,
+    )
 
     clear_screen()
     print(

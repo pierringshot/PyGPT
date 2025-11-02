@@ -14,6 +14,9 @@ import json
 import time
 import re
 import os
+import shutil
+import subprocess
+from typing import Optional
 
 
 cf_challenge_form = (By.ID, 'challenge-form')
@@ -76,6 +79,7 @@ class ChatGPT:
         :param chrome_args: The arguments to pass to the browser
         :param moderation: Whether to enable message moderation
         :param verbose: Whether to enable verbose logging
+        :param chrome_version: Force a specific major Chrome version (e.g., 139)
         '''
         self.__init_logger(verbose)
 
@@ -90,6 +94,7 @@ class ChatGPT:
         self.__proxy = proxy
         self.__chrome_args = chrome_args
         self.__moderation = moderation
+        self.__chrome_version = chrome_version
 
         if not self.__session_token and (
             not self.__email or not self.__password or not self.__auth_type
@@ -180,11 +185,25 @@ class ChatGPT:
             options.add_argument(f'--proxy-server={self.__proxy}')
         for arg in self.__chrome_args:
             options.add_argument(arg)
+        version_main = self.__chrome_version or self.__detect_chrome_version()
+        if version_main:
+            self.logger.debug(f'Detected Chromium major version: {version_main}')
+        chrome_kwargs = {'options': options}
+        if version_main:
+            chrome_kwargs['version_main'] = version_main
         try:
-            self.driver = uc.Chrome(options=options)
+            self.driver = uc.Chrome(**chrome_kwargs)
         except TypeError as e:
             if str(e) == 'expected str, bytes or os.PathLike object, not NoneType':
                 raise ValueError('Chrome installation not found')
+            raise e
+        except SeleniumExceptions.SessionNotCreatedException as e:
+            if 'This version of ChromeDriver only supports Chrome version' in str(e):
+                raise ValueError(
+                    'ChromeDriver mismatch detected. Update your Chromium/Chrome browser or set '
+                    '`chrome_version` when constructing ChatGPT(..., chrome_version=MAJOR_VERSION)` '
+                    'or run the CLI with `--chrome-version MAJOR_VERSION`.'
+                ) from e
             raise e
 
         if self.__login_cookies_path and os.path.exists(self.__login_cookies_path):
@@ -272,6 +291,32 @@ class ChatGPT:
         self.logger.debug('Closing tab...')
         self.driver.close()
         self.driver.switch_to.window(original_window)
+
+    def __detect_chrome_version(self) -> Optional[int]:
+        '''
+        Detect the installed Chromium/Chrome major version to match the correct driver
+        '''
+        candidates = [
+            'chromium',
+            'chromium-browser',
+            'google-chrome',
+            'google-chrome-stable',
+            'chrome',
+        ]
+        for candidate in candidates:
+            binary = shutil.which(candidate)
+            if not binary:
+                continue
+            try:
+                output = subprocess.check_output(
+                    [binary, '--version'], text=True, stderr=subprocess.STDOUT
+                )
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                continue
+            match = re.search(r'(\d+)\.', output)
+            if match:
+                return int(match.group(1))
+        return None
 
     def __check_capacity(self, target_url: str):
         '''
