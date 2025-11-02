@@ -64,6 +64,7 @@ class ChatGPT:
         chrome_args: list = [],
         moderation: bool = True,
         verbose: bool = False,
+        chrome_version: Optional[int] = None,
     ):
         '''
         Initialize the ChatGPT object\n
