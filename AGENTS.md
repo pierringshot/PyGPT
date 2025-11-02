@@ -27,6 +27,7 @@ This guide captures the essentials for anyone maintaining or extending the PyGPT
   pygpt --token "<session_token>" --verbose
   ```
 - Keep an eye on `undetected_chromedriver` compatibility; add regression notes if Google updates Chrome.
+- Headless deployments rely on `PyVirtualDisplay`; ensure the dependency stays pinned and that `xvfb` is installed on target hosts.
 
 ## 🚀 Installer Flow (`setup.sh`)
 - Requires `sudo`; installs into `/opt/pygpt`, creates a venv, symlinks `/bin/pygpt`.

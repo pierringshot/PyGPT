@@ -109,6 +109,7 @@ Optional flags:
 - ✅ Python 3.9 və ya yuxarı | Python 3.9+
 - ✅ Chromium / Google Chrome (`chromium`, `chromium-browser` və ya `google-chrome`)
 - ✅ Headless server üçün `xvfb` (opsional, tövsiyə olunur) | `xvfb` for headless boxes
+- ✅ `PyVirtualDisplay` (headless Linux üçün avtomatik quraşdırılır) | `PyVirtualDisplay` (auto-installed for headless Linux)
 - ✅ Stabil internet bağlantısı
 
 ---

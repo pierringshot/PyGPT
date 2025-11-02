@@ -15,7 +15,8 @@ license = { file = "LICENSE" }
 dependencies = [
   "setuptools>=65.5.0",
   "undetected-chromedriver>=3.2.1",
-  "markdownify>=1.2.0"
+  "markdownify>=1.2.0",
+  "pyvirtualdisplay>=3.0"
 ]
 keywords = ["chatgpt", "session-token", "automation", "selenium", "undetected-chromedriver"]
 classifiers = [
